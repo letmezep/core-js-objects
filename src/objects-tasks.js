@@ -311,9 +311,24 @@ function sortCitiesArray(arr) {
  *    "Russia" => ["Omsk", "Samara"],
  *    "Poland" => ["Lodz"]
  *   }
+ *
+ * Object.entries(obj).forEach(([key, value]) => {
+ * if (resultObject.hasOwnProperty.call(resultObject, key)) {
+        resultObject[key] += value;
  */
-function group(/* array, keySelector, valueSelector */) {
-  throw new Error('Not implemented');
+
+function group(array, keySelector, valueSelector) {
+  const map = new Map();
+  array.forEach((item) => {
+    const key = keySelector(item);
+    const value = valueSelector(item);
+    if (!map.has(key)) {
+      map.set(key, [value]);
+    } else {
+      map.get(key).push(value);
+    }
+  });
+  return map;
 }
 
 /**
